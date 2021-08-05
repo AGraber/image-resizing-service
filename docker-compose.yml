@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  mariadb:
+    image: mariadb:10.6
+    restart: always
+    environment:
+      MARIADB_ROOT_PASSWORD: resizer
+      MARIADB_DATABASE: image_resizer
+
+  app:
+    build:
+      context: .
+    image: image-resizer
+    depends_on:
+      - mariadb
+    links:
+      - mariadb:mariadb
+    environment:
+      MYSQL_HOST: mariadb
+      MYSQL_USER: root
+      MYSQL_PASSWORD: resizer
+      MYSQL_DATABASE: image_resizer
+      LISTEN_PORT: 8080
+    ports:
+      - 8080:8080
+    command: npm start

@@ -1,0 +1,11 @@
+# build files
+dist/
+
+# node modules
+node_modules/
+
+# env file
+.env
+
+# fs-based image cache
+image_cache
